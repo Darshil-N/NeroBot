@@ -87,7 +87,7 @@ Technology used
 
   a.  AI Architecture Overview
    --> Function :- Movement Control AI
-       Libraries :- PPO (Proximal Policy Optimization) via Stable-Baselines3 + PyTorch
+       Libraries :- SAC (Soft Actor-Critic) via Stable-Baselines3 + PyTorchh
        Purpose :- Reinforcement Learning (RL) agent which will be trained in Unity engine to optimize the propulsion through rhythmic tentacle pulsing.
 
   -->  Function :- Vision-Based Object Detection
@@ -99,10 +99,27 @@ Technology used
       Purpose :- Converts PyTorch models into optimized formats for inference on edge hardware (Raspberry Pi).
 
    -->  Function :- Decision Layer / Hybrid AI
-        Libraries :- Rule-based + LSTM
+        Libraries :- 	Hybrid: Rule-based + SAC Output
         Purpose :- this part of the AI will take the sensor inputs and using this inputs will take decisions such as avoid, dive, surface
 
 b. AI Model Training
-   --> Function :- PPO Training Loop
-       Libraries :- 
-       Purpose :- 
+   --> Function :- SAC Training Loop
+       Libraries :- Stable-Baselines3 + PyTorch
+       Purpose :- Trains a soft actor-critic agent using replay buffers and stochastic policy sampling in Unity ML-Agents.
+
+  --> Function :- Vision Training
+      Libraries :- PyTorch + YOLOv5 Framework
+      Purpose :-Object detector trained using labeled underwater datasets with data augmentation (blur, color shift, noise)
+
+  --> Function :- Experiment Tracking
+      Libraries :- Weights & Biases / TensorBoard
+      Purpose :- this part of AI will be used to develop the neural network whivh will be used give rewards, monitor the condition bot, etc.
+
+  --> Function :- Dataset Annotation
+      Libraries :- CVAT / Roboflow
+      Purpose :- Manual annotation of underwater debris for bounding box detection training.
+
+  c. Vision pipeline  
+    --> Function :- Frame Capture
+      Libraries :- 	OpenCV (cv2.VideoCapture)
+      Purpose :- Captures frames from camera in real time.
