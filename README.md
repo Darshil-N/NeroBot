@@ -123,3 +123,82 @@ b. AI Model Training
     --> Function :- Frame Capture
       Libraries :- 	OpenCV (cv2.VideoCapture)
       Purpose :- Captures frames from camera in real time.
+
+   --> Function :- Preprocessing of the video
+       Libraries :- OpenCV, numpy
+       Purpose :- 	Resizes, normalizes, and processes frames for model input
+
+  -->  Function :- Detection Inference
+       Libraries :- tensorflow lite
+       Purpose :- Loads model and applies object detection on embedded device (Pi).
+
+   --> Function :-Postprocessing	
+       Libraries :- Non-Max Suppression (NMS)
+       Purpose :- Filters overlapping bounding boxes and ranks detection by confidence.
+
+ d. Sensor Fusion & Motion Estimation
+    --> Function :- Orientation Tracking
+       Libraries :- RTIMULib, Kalman Filter
+       Purpose :- Tracks orientation using fused IMU data (accelerometer + gyro + magnetometer).
+  
+   --> Function :- Depth Estimation
+       Libraries :- Pressure Sensor + Kalman
+       Purpose :- Tracks current operating depth for safety cutoff and behavioral adaptation.
+
+   --> Function :- Obstacle Sensing
+       Libraries :- Sonar via GPIO
+       Purpose :- Detects nearby objects to adjust SAC behavior or trigger rule override.
+
+   --> Function :-Navigation State Vecto
+       Libraries :- Custom Feature Generator
+       Purpose :- Creates state tensor of bot's environment to feed into SAC policy network.
+
+ e. AI Decision Framework
+
+   --> Function :- Core Policy
+       Libraries :- SAC Actor + Critic Network
+       Purpose :- Decides pulsing strength and timing to optimize movement under noisy sensor input
+
+   --> Function :-Safety Layer
+       Libraries :- Rule-based FSM
+       Purpose :- Forces surfacing or halt if AI outputs violate critical bounds (e.g., inverted pose, leak detected). 
+
+   --> Function :- Vision-AI Fusion	
+       Libraries :- Class + Confidence Thresholds
+       Purpose :- Plastic detection confidence above threshold triggers object logging and capture behavior.   
+
+ f.Model Optimization & Edge Deployment       
+
+   --> Function :- Quantization
+       Libraries :- torch.quantization	
+       Purpose :- Converts models to INT8 for faster edge performance.
+
+   --> Function :-Pruning	
+       Libraries :- torch.nn.utils.prune
+       Purpose :- Reduces unnecessary parameters, lowering model size.
+
+   --> Function :- Export Format	
+       Libraries :- torch.jit, onnx.export	
+       Purpose :- Saves model for Pi-based runtime compatibility.    
+
+   --> Function :-Benchmarking
+       Libraries :- torch.utils.benchmark, manual profiling	
+       Purpose :- Tests latency (ms/frame), memory usage, and FPS in target conditions 
+
+  g. Cloud Learning Feedback & Logging
+   
+   --> Function :-Telemetry Uplink
+       Libraries :- paho-mqtt, firebase-admin
+       Purpose :- Sends sensor and AI state to cloud dashboard from Docker.
+
+   --> Function :-Data Logging
+       Libraries :- SQLite, CSV
+       Purpose :- Saves local inference results and raw sensor streams for post-mission analysis.  
+
+   --> Function :-Remote Model Versioning
+       Libraries :- requests, GitHub Releases
+       Purpose :- Syncs model checkpoints and versions from training team.     
+
+   --> Function :-Image Capture
+       Libraries :- OpenCV.save()
+       Purpose :- Stores unknown or low-confidence detections for future retraining.       
