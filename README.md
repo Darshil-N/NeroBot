@@ -4,6 +4,7 @@ Software part of NeroBot
 Technology used 
 
 1. For Designing and CAD tools
+   
   a. For 3D structural design
     --> Software used :- Fusion 360
     --> This will be used to Design the 3D structure of the structure of the jellyfish and part designing as well
@@ -201,4 +202,117 @@ b. AI Model Training
 
    --> Function :-Image Capture
        Libraries :- OpenCV.save()
-       Purpose :- Stores unknown or low-confidence detections for future retraining.       
+       Purpose :- Stores unknown or low-confidence detections for future retraining.
+
+
+5. Sensor Input Management 
+ 
+  --> Function :- IMU Data Capture	
+      Libraries :- RTIMULib, smbus2, I2Cdev
+      Purpose :- Collects raw 9-axis data (accelerometer, gyroscope, magnetometer) from MPU9250 via I2C.
+
+  --> Function :- Pressure Sensor Input
+      Libraries :- Adafruit_MPL3115A2 / BMP388 + Adafruit CircuitPython
+      Purpose :- Reads atmospheric and depth pressure to infer relative underwater depth.
+
+  --> Function :- Water Leak Detection
+      Libraries :- GPIOzero, RPi.GPIO
+      Purpose :- Reads binary input from water sensor strips. Triggers hard-safety logic if water is detected in electronics compartment.
+
+  --> Function :- Ultrasonic Proximity Sensing
+      Libraries :- hcsr04sensor, RPi.GPIO
+      Purpose :- Captures distance data for object proximity (e.g., debris or terrain). Used for short-range obstacle avoidance.      
+
+  --> Function :- Environmental Sensing	
+      Libraries :- Adafruit_CircuitPython_DHT, DHT22, DS18B20
+      Purpose :-  Reads ambient temperature and humidity. May regulate operation thresholds or shutdown under thermal stress.    
+      
+   --> Function :- Sensor Fusion Layer
+      Libraries :- filterpy, scipy.signal, numpy, KalmanFilter
+      Purpose :- Fuses noisy IMU, sonar, and depth data into consistent navigation state for the AI policy input tensor.
+
+   --> Function :- State Tensor Generator
+      Libraries :- Custom (NumPy + PyTorch)
+      Purpose :- Converts filtered sensor readings into a structured input tensor for SAC policy inference. Ensures deterministic order and scaling  
+
+  --> Function :- Emergency Interrupt Monitoring	
+      Libraries :- RPi.GPIO + watchdog
+      Purpose :- Listens for hard fail flags (e.g. leak detected, flipped orientation). Overrides normal AI behavior and triggers surface/halt.
+
+  --> Function :-  Health Diagnostics
+      Libraries :- smbus, checksum monitoring, timeout detection
+      Purpose :- Detects if any sensor becomes unresponsive, delayed, or gives invalid values. Sends health status to cloud.
+
+      
+6. Ocean Mapping and Localization
+
+  --> Function :- SLAM (Simultaneous Localization and Mapping)	
+      Libraries :- RTAB-Map (ROS2), GMapping, Cartographer
+      Purpose :- Builds real-time maps using sonar/LiDAR + IMU; allows bot to localize within unknown underwater terrain.   
+
+  --> Function :- Depth Mapping
+      Libraries :- RPLIDAR SDK, BlueROV ping sonar, OpenCV + disparity maps
+      Purpose :- Gathers depth profiles and 2D/3D point clouds in turbid or dark water     
+
+  --> Function :- Pose Estimation (Fusion)
+      Libraries :- filterpy, Extended Kalman Filter, Madgwick / Mahony filters
+      Purpose :- Combines IMU, pressure, and short-range sonar to estimate full 6-DOF state under drift/no GPS.   
+
+  --> Function :- Coordinate Frame Management
+      Libraries :- tf2_ros, robot_localization (ROS2)
+      Purpose :- Maintains spatial transforms between IMU, sonar, bot base, and map frame. 
+
+  --> Function :- Geospatial Anchoring	
+      Libraries :- NMEA GPS, navsat_transform_node, utm_converter
+      Purpose :- Uses surface GPS as anchor point for periodic position correction and drift reset.     
+
+  --> Function :- Occupancy Grid Construction
+      Libraries :- nav_msgs/OccupancyGrid, OpenCV, numpy
+      Purpose :- Creates 2D and 3D maps for debris field representation and navigation heatmaps     
+  --> Function :- Loop Closure Detection	
+      Libraries :- RTAB-Map loop closure + visual features (SURF, ORB, BRIEF)
+      Purpose :- Detects when the bot has returned to a previously visited area; used to refine map accuracy.  
+
+  --> Function :- Telemetry Uplink	
+      Libraries :- MQTT (paho-mqtt), LoRa (pyLoRa), ZeroMQ
+      Purpose :-Sends real-time status, detections, and alerts from bot → Docker → cloud with low power usage.
+
+  --> Function :- Cloud Data Storage	
+      Libraries :- Firebase Realtime DB, AWS DynamoDB, InfluxDB
+      Purpose :-  Stores time-stamped logs, mission data, sensor health stats, and camera frame metadata.    
+
+  --> Function :- Remote Command Interface
+      Libraries :- Flask, FastAPI, Node.js + Express, Firebase Functions
+      Purpose :-  Enables command input from operators (e.g., abort, change patrol pattern, update model).   
+
+  --> Function :- Over-the-Air Model Updates
+      Libraries :- Docker, rsync, GitHub, Firebase Hosting, gRPC
+      Purpose :- Pulls updated .onnx or .pt models from cloud to bot via Dockerized listener; replaces hot models.
+
+  --> Function :- System Monitoring & Alerts
+      Libraries :- Grafana, Prometheus, Firebase Notifications, PagerDuty
+      Purpose :- Monitors system parameters, sends critical alerts on sensor failure, AI crash, or mission timeout.     
+
+  --> Function :- Data Synchronization	
+      Libraries :- SQLite3 (on bot), rsync, pandas
+      Purpose :- Local buffering of telemetry in case of disconnection, syncs data on reconnection with timestamp checks.  
+
+  --> Function :- Secure Comms Layer
+      Libraries :- SSL, MQTTS, JWT, OAuth2, certbot
+      Purpose :- Encrypts MQTT and HTTPS payloads; ensures authorized access to cloud functions. 
+
+  --> Function :- Code Development & Management
+      Libraries :- VSCode, CLion, PlatformIO, PyCharm, GitHub, GitLab
+      Purpose :- Code editing, embedded flashing, version control, and CI/CD pipelines.    
+
+  --> Function :- AI Experiment Tracking	
+      Libraries :- TensorBoard, Weights & Biases (wandb), MLFlow
+      Purpose :-  Tracks model loss, reward, hyperparameters, model comparisons across experiments.   
+
+  --> Function :- Testing & Debug Tools
+      Libraries :- Jupyter, IPython, Serial Monitor, OpenOCD
+      Purpose :- Script testing, hardware debugging, bootloader interface for low-level microcontroller firmware. 
+
+  --> Function :- 	Deployment Automation
+      Libraries :- Docker, docker-compose, cron, Ansible
+      Purpose :- Automates containerized AI module deployment, model updates, system restart scheduling.     
