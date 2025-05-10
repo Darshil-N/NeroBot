@@ -41,7 +41,7 @@ Technology used
           Purpose :- This part will manage the communication between microcontroller and Depth/pressure sensors
 
       --> Function :- Safety Protocol
-          Library :- 	digitalRead(), safe_shutdown(), surface_protocol(), Watchdog timer
+          Library :- digitalRead(), safe_shutdown(), surface_protocol(), Watchdog timer
           Purpose :- This part of the code is used to detect leaks or if the bot gets damaged it will resurface itself to the nearest docker and will all the implement the emergency protocols
 
       --> Function :- Serial Communication
@@ -100,7 +100,7 @@ Technology used
       Purpose :- Converts PyTorch models into optimized formats for inference on edge hardware (Raspberry Pi).
 
    -->  Function :- Decision Layer / Hybrid AI
-        Libraries :- 	Hybrid: Rule-based + SAC Output
+        Libraries :- Hybrid: Rule-based + SAC Output
         Purpose :- this part of the AI will take the sensor inputs and using this inputs will take decisions such as avoid, dive, surface
 
 b. AI Model Training
@@ -127,7 +127,7 @@ b. AI Model Training
 
    --> Function :- Preprocessing of the video
        Libraries :- OpenCV, numpy
-       Purpose :- 	Resizes, normalizes, and processes frames for model input
+       Purpose :- Resizes, normalizes, and processes frames for model input
 
   -->  Function :- Detection Inference
        Libraries :- tensorflow lite
@@ -273,6 +273,8 @@ b. AI Model Training
       Libraries :- RTAB-Map loop closure + visual features (SURF, ORB, BRIEF)
       Purpose :- Detects when the bot has returned to a previously visited area; used to refine map accuracy.  
 
+7. Cloud computation
+   
   --> Function :- Telemetry Uplink	
       Libraries :- MQTT (paho-mqtt), LoRa (pyLoRa), ZeroMQ
       Purpose :-Sends real-time status, detections, and alerts from bot → Docker → cloud with low power usage.
@@ -301,6 +303,8 @@ b. AI Model Training
       Libraries :- SSL, MQTTS, JWT, OAuth2, certbot
       Purpose :- Encrypts MQTT and HTTPS payloads; ensures authorized access to cloud functions. 
 
+8.Miscellaneous componenets
+
   --> Function :- Code Development & Management
       Libraries :- VSCode, CLion, PlatformIO, PyCharm, GitHub, GitLab
       Purpose :- Code editing, embedded flashing, version control, and CI/CD pipelines.    
@@ -313,6 +317,6 @@ b. AI Model Training
       Libraries :- Jupyter, IPython, Serial Monitor, OpenOCD
       Purpose :- Script testing, hardware debugging, bootloader interface for low-level microcontroller firmware. 
 
-  --> Function :- 	Deployment Automation
+  --> Function :- Deployment Automation
       Libraries :- Docker, docker-compose, cron, Ansible
       Purpose :- Automates containerized AI module deployment, model updates, system restart scheduling.     
