@@ -3,13 +3,13 @@ Software part of NeroBot
 
 Technology used 
 
-1. For Designing and CAD tools
+1. For Designing and CAD tools (2 weeks max) ( ? )
    
   a. For 3D structural design
     --> Software used :- Fusion 360
     --> This will be used to Design the 3D structure of the structure of the jellyfish and part designing as well
 
-2. For simulation
+2. For simulation (3 weeks max) (before components)
    a. For motion simulation of robot
    --> Software used :- WeBots
    --> This Software will be used to simulate the motion of the bot and to find any mechanical obstruction within the bot itself during the motion and make it ready for real world
@@ -22,7 +22,7 @@ Technology used
    --> Software Used :- Blender
    --> Blender will be uesd for basic visualisation of the bot moving and record it in different condition and able to record the movement for any required changes in the model
 
-3. Embedded System
+3. Embedded System (3 to 4 weeks) (after components)
       a.  Low-Level Embedded Software (For ESP32)
       --> Language used :- C/C++
       --> Frameworks :- Arduino Core For ESP32
@@ -84,9 +84,9 @@ Technology used
          Libraries :- paho-mqtt, firebase-admin, pyserial, SQLite3, CSV, requests, urllib3, ssl, MQTTS/HTTPS, Flask, Node-RED, or Kivy, Queue / FIFO buffer
          Purpose :- Pushes real-time data from Docker to cloud securely, prioritizing urgent messages and confirming packet receipt with fail-safe local storage. Manages connectivity  and supports cloud-pulled AI/control updates. Allows offline diagnostics and manual commands during field ops.
 
-4. Artificial and Machine learning
+4. Artificial and Machine learning ()
 
-  a.  AI Architecture Overview
+  a.  AI Architecture Overview 
    --> Function :- Movement Control AI
        Libraries :- SAC (Soft Actor-Critic) via Stable-Baselines3 + PyTorchh
        Purpose :- Reinforcement Learning (RL) agent which will be trained in Unity engine to optimize the propulsion through rhythmic tentacle pulsing.
