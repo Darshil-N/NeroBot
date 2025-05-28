@@ -1,7 +1,6 @@
-path: dataset  # path to dataset folder from your training script
-
+path: dataset  
 train: images/train
 val: images/val
 
-names: ['Anonymouse']  # change this to your actual class name
+names: ['Anonymouse']
 nc: 1 
